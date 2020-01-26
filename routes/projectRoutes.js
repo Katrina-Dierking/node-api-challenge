@@ -1,8 +1,8 @@
 const express = require("express");
 const router = express.Router();
-router.use(express.json());
-
 const projectsDb = require("../data/helpers/projectModel");
+
+router.use(express.json());
 
 //-----------------------------------------//
 //POST PROJECT// (CREATE)
