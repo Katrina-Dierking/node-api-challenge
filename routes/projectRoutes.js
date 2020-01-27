@@ -1,6 +1,7 @@
-const express = require("express");
+const express = require('express');
 const router = express.Router();
-const projectsDb = require("../data/helpers/projectModel");
+const projectsDb = require('../data/helpers/projectModel');
+const actionDb = require('../data/helpers/actionModel');
 
 router.use(express.json());
 
@@ -24,6 +25,8 @@ router.post('/', (req, res) => {
       });
   });
   
+
+
 
 //-----------------------------------------//
 //GET PROJECT// (READ)
@@ -142,5 +145,40 @@ router.delete('/projects/:id', (req, res) => {
         });
     });
 });
+
+
+
+//-----------------------------------------//
+//ADD ACTION TO PROJECT//
+//-----------------------------------------//
+
+
+router.post('/:id/actions',  (req, res) => {
+  const body = req.body;
+
+  if (!body.description || !body.notes || !body.project_id) {
+    res.status(400).json
+    ({
+      success: false, 
+      errorMessage:
+        "Description, notes, and id required."
+    });
+
+  } else {
+
+    actionDb.insert(body)
+      .then(post => {
+        res.status(201).json(post);
+      })
+      .catch(error => {
+        res.status(500).json
+        ({
+          success: false, 
+          errorMessage: "Action could not be saved to project", error
+        });
+      });
+    }
+});
+
 
 module.exports = router;

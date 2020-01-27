@@ -7,22 +7,9 @@ router.use(express.json())
 
 //-----------------------------------------//
 //POST ACTION// (CREATE)
+//ACTION POST ADDED TO PROJECTROUTES//
 //-----------------------------------------//
-router.post('/', (req, res) => {
-    const body = req.body;
 
-    actionDb.insert(body)
-      .then(result => {
-        res.status(201).json(result);
-      })
-      .catch(error => {
-        res.status(500).json
-        ({
-            success: false, 
-            errorMessage: "Could not add action", error
-        });
-      });
-  });
 
 
 //-----------------------------------------//
